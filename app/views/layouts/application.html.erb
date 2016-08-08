@@ -4,11 +4,44 @@
     <title>EventConnect</title>
     <%= csrf_meta_tags %>
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <div class="header">
+        <% if user_signed_in? %>
+          <ul id="logged_in_dropdown" class="dropdown-content">
+            <li><%= link_to 'Profile', edit_user_registration_path %></li>
+            <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+          </ul>
+        <% end %>
+        <nav class="light-blue lighten-1" role="navigation">
+          <div class="main nav-wrapper container">
+            <%= link_to "Event Connect", root_path, id: "logo-container", class: "brand-logo" %>
+            <ul class="right">
+              <li>
+                <%= link_to "Home", root_path %>
+              </li>
+              <% if user_signed_in?%>
+                <li><a class="dropdown-button" href="#!" data-activates="logged_in_dropdown"><%= current_user.email %><i class="material-icons right">arrow_drop_down</i></a></li>
+              <% else %>
+                <li><%= link_to 'Log In', new_user_session_path %></li>
+                <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <section class="container"> 
+      <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+      <%= yield %>
+    </section>
   </body>
+ 
 </html>
