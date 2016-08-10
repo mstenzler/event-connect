@@ -1,9 +1,8 @@
 class Event < ApplicationRecord
   belongs_to :user
+  has_many :rsvps, -> { includes(:user) }
 
-  attr_accessor :start_date_date, :start_date_time, :end_date_date, :end_date_time, 
-                :start_date_meridian, :end_date_meridian
-
+  attr_accessor :start_date_date, :start_date_time, :end_date_date, :end_date_time
  
   after_initialize :get_datetimes
   before_validation :set_datetimes

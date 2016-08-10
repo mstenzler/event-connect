@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :init_rsvps, only: [:show]
 
   # GET /events
   # GET /events.json
@@ -67,6 +68,13 @@ class EventsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
+    end
+
+    def init_rsvps
+      if current_user
+        @rsvp_id_arr = @event.rsvps.map { |rsvp| rsvp.user.id }
+        @current_user_already_rsvp = @rsvp_id_arr.include? current_user.id
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

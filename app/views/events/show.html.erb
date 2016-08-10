@@ -38,3 +38,15 @@
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
+
+<button class="event-rsvp" data-event-id="<%= @event.id %>">RSVP to event</button>
+
+<h2>RSVPs</h2>
+
+<div id="event_rsvp_list" >
+  <%= render partial: 'event_rsvp_list', locals: {event: @event}  %>
+</div>
+
+
+
+
