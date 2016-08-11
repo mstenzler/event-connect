@@ -11,7 +11,7 @@ class RsvpsController < ApplicationController
   end
 
   def create
-    if (false && @current_user_already_rsvp)
+    if (@current_user_already_rsvp)
       @rsvp = Rsvp.where(event_id: @event.id, user_id: current_user.id).first
       Rails.logger.debug("Already got rsvp #{@rsvp.inspect}")
     else

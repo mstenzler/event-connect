@@ -15,10 +15,13 @@
           </p>
           <p><%= event.description %>
           </p>
+        <div>
         <div class="card-action">
           <%= link_to 'Show', event %>
-          <%= link_to 'Edit', edit_event_path(event) %>
-          <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% if (event.can_modify(current_user)) %>
+            <%= link_to 'Edit', edit_event_path(event) %>
+            <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
         </div>
       </div>
     </div>

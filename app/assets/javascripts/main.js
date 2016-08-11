@@ -40,10 +40,6 @@ $(document).ready(function() {
     }).done(function(){
       console.log(arguments);
       $target.closest('.row').remove();
-      //$target.text("Saved");
-      //$target.attr('disabled', true);
-      //let quote = arguments[0];
-      //appendStudent(student);
     })
   }
 

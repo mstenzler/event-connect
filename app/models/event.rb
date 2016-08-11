@@ -19,6 +19,10 @@ class Event < ApplicationRecord
     format_display_date(self.end_time)
   end
 
+  def can_modify(user)
+    (user && ( (user.id = self.user_id) || user.is_admin) )
+  end
+
   private
 
     def format_display_date(date)

@@ -39,7 +39,11 @@
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
 
-<button class="event-rsvp" data-event-id="<%= @event.id %>">RSVP to event</button>
+<% if @current_user_already_rsvp %>
+  <button>Currently RSVP'd</button>
+<% else %>
+  <button class="event-rsvp" data-event-id="<%= @event.id %>">RSVP to event</button>
+<% end %>
 
 <h2>RSVPs</h2>
 
