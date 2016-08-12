@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
   belongs_to :user
   has_many :rsvps, -> { includes(:user) }
+  has_many :likes, -> { includes(:user) }
 
   attr_accessor :start_date_date, :start_date_time, :end_date_date, :end_date_time
  

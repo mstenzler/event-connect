@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809182635) do
+ActiveRecord::Schema.define(version: 20160811153205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 20160809182635) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "event_id"
+    t.integer  "user_id"
+    t.integer  "liked_user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["event_id", "user_id", "liked_user_id"], name: "index_likes_on_event_id_and_user_id_and_liked_user_id", unique: true, using: :btree
+    t.index ["event_id"], name: "index_likes_on_event_id", using: :btree
+    t.index ["liked_user_id"], name: "index_likes_on_liked_user_id", using: :btree
+    t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
   end
 
   create_table "rsvps", force: :cascade do |t|
@@ -59,6 +71,8 @@ ActiveRecord::Schema.define(version: 20160809182635) do
   end
 
   add_foreign_key "events", "users"
+  add_foreign_key "likes", "events"
+  add_foreign_key "likes", "users"
   add_foreign_key "rsvps", "events"
   add_foreign_key "rsvps", "users"
 end

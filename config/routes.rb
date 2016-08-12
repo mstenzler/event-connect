@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :events do
     resources :rsvps
+    resources :likes
   end
   
   devise_for :users
