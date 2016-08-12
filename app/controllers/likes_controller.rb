@@ -27,6 +27,17 @@ class LikesController < ApplicationController
     end
   end
 
+  #Delete like
+  def destroy
+    like = Like.find(params[:id])
+    if like
+      like.destroy
+      render :json => {:deleted => true} if like
+    else
+      render :json => {:deleted => false}
+    end
+  end
+
   private
 
     def load_event

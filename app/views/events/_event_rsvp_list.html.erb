@@ -7,13 +7,21 @@
           <p>Code: <%= rsvp.code %>
           </p>
         </div>
-        <div class="card-action">
-          <% if rsvp.user_id == current_user.id %>
-            <button class="event-unrsvp" data-event-id="<%= event.id %>" data-rsvp-id="<%= rsvp.id %>">UnRsvp</button>
+        <% if current_user %>
+          <div class="card-action">
+            <% if rsvp.user_id == current_user.id %>
+              <button class="event-unrsvp" data-event-id="<%= event.id %>" data-rsvp-id="<%= rsvp.id %>">UnRsvp</button>
+            <% elsif @liked_user_id_arr.include?(rsvp.user_id) %>
+              <% if like_id = @curr_user_liked_user_to_liked_id_hash[rsvp.user_id] %> 
+                <button class="event-toggle-like-user user-likes" data-event-id="<%= event.id %>" data-like-id="<%= like_id %>">Unlike</button>
+              <% else %>
+               <!-- Could not get like_id for user -->
+              <% end %>
             <% else %>
-              <button class="event-like-user" data-event-id="<%= event.id %>" data-liked-user-id="<%= rsvp.user_id %>">Like</button>
+                <button class="event-toggle-like-user" data-event-id="<%= event.id %>" data-liked-user-id="<%= rsvp.user_id %>">Like</button>
             <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

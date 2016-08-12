@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :likes
-  has_many :liked_users, :through => :likes, :foreign_key => 'liked_user_id', source: :user
+  has_many :liked_users, :through => :likes, source: :user
 
   has_many :liked_by, :foreign_key => 'liked_user_id', :class_name => 'Like'
   has_many :admirers, :through => :liked_by, :source => :user

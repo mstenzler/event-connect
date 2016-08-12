@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  const LIKE_LABEL = "Like";
+  const UNLIKE_LABEL = "UnLike";
+
   function saveRsvp(e) {
     var $target = $(e.target);
     var event_id = $target.attr('data-event-id');
@@ -43,7 +46,33 @@ $(document).ready(function() {
     })
   }
 
+  function unlikeUser(e) {
+    console.log("IN unLikeUser!");
+    var $target = $(e.target);
+    var event_id = $target.attr('data-event-id');
+    var like_id = $target.attr('data-like-id')
+    var url = `/events/${event_id}/likes/${like_id}.json`
+    console.log(`url= ${url}`);
+//    var data = {
+//    }
+    //console.log("data = ", data)
+    $.ajax({
+      url: url,
+      method: 'delete',
+  //    contentType:"application/json; charset=utf-8",
+   //   data: data
+    }).done(function(){
+      console.log("unLiked user")
+      console.log(arguments);
+      $target.text(LIKE_LABEL);
+      //$target.attr('disabled', true);
+      //let quote = arguments[0];
+      //appendStudent(student);
+    })
+  }
+
   function likeUser(e) {
+    console.log("IN likeUser!");
     var $target = $(e.target);
     var event_id = $target.attr('data-event-id');
     var liked_user_id = $target.attr('data-liked-user-id')
@@ -58,19 +87,33 @@ $(document).ready(function() {
       method: 'post',
   //    contentType:"application/json; charset=utf-8",
       data: data
-    }).done(function(){
-      console.log("Liked user")
-      console.log(arguments);
-      $target.text("Likes");
-      $target.attr('disabled', true);
+    }).done(function(data){
+      console.log("Liked user. Data = ", data)
+      //console.log(arguments);
+      $target.text(UNLIKE_LABEL);
+      //$target.attr('disabled', true);
       //let quote = arguments[0];
       //appendStudent(student);
     })
   }
+
+  function toggleLikeUser(e) {
+    var $target = $(e.target);
+    var label = $target.text();
+    console.log(`label = ${label}`);
+    if (label === LIKE_LABEL) {
+      likeUser(e);
+    } else {
+      unlikeUser(e);
+    }
+  }
+
   $(".event-rsvp").click(saveRsvp);
 //  $(".event-unrsvp").click(deleteRsvp);
   $('#event_rsvp_list').on('click', '.event-unrsvp', deleteRsvp);
-  $('#event_rsvp_list').on('click', '.event-like-user', likeUser);
+//  $('#event_rsvp_list').on('click', '.event-like-user', likeUser);
+//  $('#event_rsvp_list').on('click', '.event-unlike-user', likeUser);
+  $('#event_rsvp_list').on('click', '.event-toggle-like-user', toggleLikeUser);
 
   $(".dropdown-button").dropdown();
 })
