@@ -39,6 +39,10 @@
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
 
+<hr>
+
+<%= link_to 'My matches', event_likes_path(@event) %>
+
 <% if @current_user_already_rsvp %>
   <button>Currently RSVP'd</button>
 <% else %>

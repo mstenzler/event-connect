@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def event_mutual_likes(event)
-    User.find_by_sql(["SELECT u.* FROM users u join likes on likes.user_id = u.id join likes l on likes.user_id=l.liked_user_id and l.user_id=likes.liked_user_id WHERE (l.user_id = ? and l.event_id = ?)", self.id, event.id])
+    User.find_by_sql(["SELECT DISTINCT u.* FROM users u join likes on likes.user_id = u.id join likes l on likes.user_id=l.liked_user_id and l.user_id=likes.liked_user_id and l.event_id = likes.event_id WHERE (l.user_id = ? and l.event_id = ?)", self.id, event.id])
   end
 
   def all_mutual_likes

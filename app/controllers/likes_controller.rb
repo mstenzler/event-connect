@@ -2,6 +2,10 @@ class LikesController < ApplicationController
   before_action :authenticate_user!
   before_action :load_event
 
+  def index
+    @users = current_user.event_mutual_likes(@event)
+  end
+
   def create
     liked_user_id = params[:liked_user_id]
     unless(liked_user_id && liked_user_id = liked_user_id.to_i) 
