@@ -21,7 +21,7 @@ class Event < ApplicationRecord
   end
 
   def can_modify(user)
-    (user && ( (user.id = self.user_id) || user.is_admin) )
+    (user && ( (user.id == self.user_id) || user.is_admin) )
   end
 
   private

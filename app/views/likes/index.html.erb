@@ -1,4 +1,5 @@
 <% @users.each do |user| %>
+<%= image_tag gravatar_url(user.email, 64), alt: "" %>
  id: <%= user.id %>
  Name: <%= user.display_name %><br/>
  Email: <%= user.email %> <br/>
