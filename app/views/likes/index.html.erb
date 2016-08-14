@@ -1,7 +1,14 @@
-<% @users.each do |user| %>
-<%= image_tag gravatar_url(user.email, 64), alt: "" %>
- id: <%= user.id %>
- Name: <%= user.display_name %><br/>
- Email: <%= user.email %> <br/>
- <hr/>
-<% end %>
+<h3 class="align-center">My Matches</h3>
+
+<ul class="collection">
+  <% @users.each do |user| %>
+    <li class="collection-item avatar">
+      <%= image_tag gravatar_url(user.email, 64), alt: "", class: "circle" %>
+      <p>Name: <%= user.display_name %><br/>
+      Email: <%= user.email %> <br/>
+      </p>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back', event_path(@event) %>

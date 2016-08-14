@@ -11,6 +11,7 @@ class Event < ApplicationRecord
   DATE_FORMAT = "%d %B, %Y"
   TIME_FORMAT = "%I:%M%p"
   DATE_AND_TIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT
+  DATE_AND_TIME_FORMAT_SHORT = "%a, %b %d at %I:%M%p"
 
   def start_time_display
     format_display_date(self.start_time)
@@ -18,6 +19,14 @@ class Event < ApplicationRecord
 
   def end_time_display
     format_display_date(self.end_time)
+  end
+
+  def start_time_display_short
+    format_display_date_short(self.start_time)
+  end
+
+  def end_time_display_short
+    format_display_date_short(self.end_time)
   end
 
   def can_modify(user)
@@ -28,6 +37,10 @@ class Event < ApplicationRecord
 
     def format_display_date(date)
       date.strftime(DATE_AND_TIME_FORMAT)
+    end
+
+    def format_display_date_short(date)
+      date.strftime(DATE_AND_TIME_FORMAT_SHORT)
     end
 
     def get_datetimes

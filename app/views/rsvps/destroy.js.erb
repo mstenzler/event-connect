@@ -1,0 +1,2 @@
+$('#event_rsvp_list').empty(); 
+$("#event_rsvp_list").append("<%= j render(partial: '/events/event_rsvp_list', locals: { event: @event, current_user_already_rsvp: @current_user_already_rsvp } ) %>");

@@ -74,6 +74,7 @@ class EventsController < ApplicationController
       if current_user
         @rsvp_id_arr = @event.rsvps.map { |rsvp| rsvp.user.id }
         @current_user_already_rsvp = @rsvp_id_arr.include? current_user.id
+        @current_user_rsvp_id = @current_user_already_rsvp ? current_user.rsvp_id_for_event(@event) : nil 
         @liked_user_id_arr = current_user.liked_user_id_arr_by_event(@event)
         #below is a hash of liked_users to the like_id in order to set unlike button
         @curr_user_liked_user_to_liked_id_hash = 

@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :rsvps
+
   has_many :likes
   has_many :liked_users, :through => :likes, source: :user
 
@@ -18,6 +20,12 @@ class User < ApplicationRecord
 
   has_many :likes_as_a, class_name: "Like", foreign_key: :user_id
   has_many :likes_as_b, class_name: "Like", foreign_key: :liked_user_id
+
+  #returns the rsvp id for an event if user is RSVP'd to event
+  def rsvp_id_for_event(event)
+    rsvp = rsvps.where(event_id: event.id).first
+    rsvp ? rsvp.id : nil
+  end
 
   def mutual(event)
     User.where(id: likes_as_a.where(event_id: event.id).pluck(:liked_user_id) + likes_as_b.where(event_id: event.id).pluck(:user_id))

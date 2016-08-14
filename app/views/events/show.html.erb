@@ -1,58 +1,41 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col s10  offset-s1">
+    <h3 class="center-align"><%= @event.title %></h3>
+    <% if current_user && @event.can_modify(current_user) %>
+      <div class="center-align"><%= link_to 'Edit', edit_event_path(@event) %> </div>
+    <% end %>
 
+    <div class="card-panel">
 
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
+      <div class="venue">
+        <strong>Where:</strong><br />
+        <%= @event.venue_name %><br />
+        <%= @event.venue_address %> <%= @event.venue_zip %>
+      </div>
 
-<p>
-  <strong>Venue name:</strong>
-  <%= @event.venue_name %>
-</p>
+    </div>
+    <div class="card-panel">
+      <div class="event-time">
+        <strong>When:</strong><br />
+        <%= @event.start_time_display_short %> - <%= @event.end_time_display_short %>
+      </div>
+    </div>
 
-<p>
-  <strong>Venue address:</strong>
-  <%= @event.venue_address %>
-</p>
+    <div class="card-panel">
+      <strong>Event Info:</strong>
 
-<p>
-  <strong>Venue zip:</strong>
-  <%= @event.venue_zip %>
-</p>
+      <div class="event-description">
+          <%= @event.description %>
+      </div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
+    </div>
 
-<p>
-  <strong>Start time:</strong>
-  <%= @event.start_time %>
-</p>
+<hr />
+<h3 class="center-align">RSVPs</h3>
 
-<p>
-  <strong>End time:</strong>
-  <%= @event.end_time %>
-</p>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
-
-<hr>
-
-<%= link_to 'My matches', event_likes_path(@event) %>
-
-<% if @current_user_already_rsvp %>
-  <button>Currently RSVP'd</button>
-<% else %>
-  <button class="event-rsvp" data-event-id="<%= @event.id %>">RSVP to event</button>
-<% end %>
-
-<h2>RSVPs</h2>
 
 <div id="event_rsvp_list" >
-  <%= render partial: 'event_rsvp_list', locals: {event: @event}  %>
+  <%= render partial: 'event_rsvp_list', locals: {event: @event, current_user_already_rsvp: @current_user_already_rsvp }  %>
 </div>
 
 

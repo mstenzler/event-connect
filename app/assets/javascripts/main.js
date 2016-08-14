@@ -30,7 +30,7 @@ $(document).ready(function() {
     var $target = $(e.target);
     var event_id = $target.attr('data-event-id');
     var rsvp_id = $target.attr('data-rsvp-id');
-    var url = `/events/${event_id}/rsvps/${rsvp_id}.json`
+    var url = `/events/${event_id}/rsvps/${rsvp_id}.js`
     var data = {
     }
 
@@ -42,7 +42,7 @@ $(document).ready(function() {
       data: data
     }).done(function(){
       console.log(arguments);
-      $target.closest('.row').remove();
+     // $target.closest('.row').remove();
     })
   }
 
@@ -65,6 +65,7 @@ $(document).ready(function() {
       console.log("unLiked user")
       console.log(arguments);
       $target.text(LIKE_LABEL);
+      $target.attr('data-action', LIKE_LABEL);
       //$target.attr('disabled', true);
       //let quote = arguments[0];
       //appendStudent(student);
@@ -91,6 +92,8 @@ $(document).ready(function() {
       console.log("Liked user. Data = ", data)
       //console.log(arguments);
       $target.text(UNLIKE_LABEL);
+      $target.attr('data-action', UNLIKE_LABEL);
+      $target.attr('data-like-id', data.id);
       //$target.attr('disabled', true);
       //let quote = arguments[0];
       //appendStudent(student);
@@ -99,16 +102,20 @@ $(document).ready(function() {
 
   function toggleLikeUser(e) {
     var $target = $(e.target);
-    var label = $target.text();
-    console.log(`label = ${label}`);
-    if (label === LIKE_LABEL) {
+    console.log('target = ', $target);
+    var action = $target.attr('data-action');
+    console.log(`action = ${action}`);
+    if (action === LIKE_LABEL) {
       likeUser(e);
-    } else {
+    } else if (action === UNLIKE_LABEL) {
       unlikeUser(e);
+    } else {
+      console.log("Unknown Action")
     }
   }
 
-  $(".event-rsvp").click(saveRsvp);
+//  $(".event-rsvp").click(saveRsvp);
+  $("#event_rsvp_list").on('click', '.event-rsvp', saveRsvp);
 //  $(".event-unrsvp").click(deleteRsvp);
   $('#event_rsvp_list').on('click', '.event-unrsvp', deleteRsvp);
 //  $('#event_rsvp_list').on('click', '.event-like-user', likeUser);
