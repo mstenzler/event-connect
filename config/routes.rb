@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'events#index'
+  
   resources :events do
     resources :rsvps
     resources :likes
