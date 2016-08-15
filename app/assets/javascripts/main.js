@@ -5,8 +5,9 @@ $(document).ready(function() {
   function saveRsvp(e) {
     var $target = $(e.target);
     var event_id = $target.attr('data-event-id');
-    var url = `/events/${event_id}/rsvps.js`
-    console.log(`url= ${url}`);
+//    var url = `/events/${event_id}/rsvps.js`
+    var url = '/events/' + event_id + '/rsvps.js'
+    console.log('url= ', url);
     var data = {
     }
 
@@ -30,11 +31,12 @@ $(document).ready(function() {
     var $target = $(e.target);
     var event_id = $target.attr('data-event-id');
     var rsvp_id = $target.attr('data-rsvp-id');
-    var url = `/events/${event_id}/rsvps/${rsvp_id}.js`
+    //var url = `/events/${event_id}/rsvps/${rsvp_id}.js`
+    var url = '/events/' + event_id + '/rsvps/' + rsvp_id + '.js'
     var data = {
     }
 
-    console.log(`url= ${url}`);
+    console.log('url= ', url);
     $.ajax({
       url: url,
       method: 'delete',
@@ -51,8 +53,9 @@ $(document).ready(function() {
     var $target = $(e.target);
     var event_id = $target.attr('data-event-id');
     var like_id = $target.attr('data-like-id')
-    var url = `/events/${event_id}/likes/${like_id}.json`
-    console.log(`url= ${url}`);
+//    var url = `/events/${event_id}/likes/${like_id}.json`
+    var url = '/events/' + event_id + '/likes/' + like_id + '.json'
+    console.log('url= ', url);
 //    var data = {
 //    }
     //console.log("data = ", data)
@@ -77,8 +80,9 @@ $(document).ready(function() {
     var $target = $(e.target);
     var event_id = $target.attr('data-event-id');
     var liked_user_id = $target.attr('data-liked-user-id')
-    var url = `/events/${event_id}/likes.json`
-    console.log(`url= ${url}`);
+ //   var url = `/events/${event_id}/likes.json`
+    var url = '/events/' + event_id + '/likes.json'
+    console.log('url= ', url);
     var data = {
       liked_user_id: liked_user_id
     }
@@ -104,7 +108,7 @@ $(document).ready(function() {
     var $target = $(e.target);
     console.log('target = ', $target);
     var action = $target.attr('data-action');
-    console.log(`action = ${action}`);
+    //console.log(`action = ${action}`);
     if (action === LIKE_LABEL) {
       likeUser(e);
     } else if (action === UNLIKE_LABEL) {
