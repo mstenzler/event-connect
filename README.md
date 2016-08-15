@@ -1,6 +1,9 @@
 # event-connect
 event application where people can sign up for events, choose who they like and find mutual connections.
 
+# Live Version
+<https://event-connect.herokuapp.com>
+
 ## User Stories
 * A user can register an account
 * A user can delete an account
