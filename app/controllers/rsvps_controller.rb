@@ -15,7 +15,7 @@ class RsvpsController < ApplicationController
       @rsvp = Rsvp.where(event_id: @event.id, user_id: current_user.id).first
       Rails.logger.debug("Already got rsvp #{@rsvp.inspect}")
     else
-      rand_code = random_code(8)
+      rand_code = random_code(5)
       @rsvp = @event.rsvps.new({ user_id: current_user.id, code: rand_code } )
       @rsvp.save
       load_rsvp_info
