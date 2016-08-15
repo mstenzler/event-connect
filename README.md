@@ -23,7 +23,7 @@ This is build using Ruby on Rails 5.0 and materialize.css for style. it also use
 
 ##Todo
 * Avatar file uploads using aws
-* remove user RSVP's when user unrsvps to event
+* remove user likes when user unrsvps to event
 * remove user RSVP's when user deletes account
 
 
