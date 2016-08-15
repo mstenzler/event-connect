@@ -7,3 +7,36 @@
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #757575; }
 .divider-color         { border-color: #BDBDBD; }
+
+.alert-info, .alert-notice { 
+  border-color: #B4E1E4;
+  background: #81c7e1;
+  color: #fff;
+  margin: 1em;
+  padding: 1em;
+}
+.alert-danger { 
+ border-color: #B63E5A;
+ background: #E26868;
+ color: #fff; 
+ margin: 1em;
+ padding: 1em;
+}
+.alert-warning { 
+  border-color: #F3F3EB;
+  background: #E9CEAC;
+  color: #fff; 
+  margin: 1em;
+  padding: 1em;
+}
+.alert-success { 
+  border-color: #19B99A;
+  background: #20A286;
+  color: #fff; 
+  margin: 1em;
+  padding: 1em;
+}
+
+span.badge {
+  color: white;
+}

@@ -33,6 +33,10 @@ class Event < ApplicationRecord
     (user && ( (user.id == self.user_id) || user.is_admin) )
   end
 
+  def num_rsvps
+    rsvps.length
+  end
+  
   private
 
     def format_display_date(date)

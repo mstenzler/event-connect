@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h2 class="center-align">Events</h2>
 
 <% @events.each do |event| %>
@@ -7,7 +5,7 @@
     <div class="col s12">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-          <span class="card-title white-text"><%= event.title %></span>
+          <span class="card-title white-text"><%= event.title %>  <span class="badge red" data-badge-caption="Rsvps"><%= event.num_rsvps %></span></span>
           <p>Time: <%= event.start_time_display_short %> <% if event.end_time %> to <%= event.end_time_display_short %> <% end %>
           </p>
           <br >
@@ -29,4 +27,4 @@
   </div>
 <% end %>
 
-<%= link_to 'New Event', new_event_path %>
+<%= link_to 'New Event', new_event_path, class: "btn waves-effect waves-light orange" %>
