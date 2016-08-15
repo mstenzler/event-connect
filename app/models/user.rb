@@ -11,15 +11,22 @@ class User < ApplicationRecord
 
   has_many :liked_by, :foreign_key => 'liked_user_id', :class_name => 'Like'
   has_many :admirers, :through => :liked_by, :source => :user
-  has_many :event_liked_by, ->  (event) { 
-           where("event_id = ?", event.id)
-         }, :foreign_key => 'liked_user_id', :class_name => 'Like'
-  has_many :event_admirers, -> (event) {
-          where("event_id = ?", event.id)
-          }, :through => :liked_by, :source => :user
+ 
+ # has_many :event_liked_by, ->  (event) { 
+ #          where("event_id = ?", event.id)
+ #        }, :foreign_key => 'liked_user_id', :class_name => 'Like'
+ # has_many :event_admirers, -> (event) {
+ #         where("event_id = ?", event.id)
+ #         }, :through => :liked_by, :source => :user
 
-  has_many :likes_as_a, class_name: "Like", foreign_key: :user_id
-  has_many :likes_as_b, class_name: "Like", foreign_key: :liked_user_id
+#  has_many :likes_as_a, class_name: "Like", foreign_key: :user_id
+#  has_many :likes_as_b, class_name: "Like", foreign_key: :liked_user_id
+
+  GENDERS = ['Male', 'Female', 'Other']
+
+  def self.gender_options
+    GENDERS.collect { |g| [ g, g ] }
+  end 
 
   #returns the rsvp id for an event if user is RSVP'd to event
   def rsvp_id_for_event(event)

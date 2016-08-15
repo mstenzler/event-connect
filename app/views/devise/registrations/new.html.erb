@@ -14,6 +14,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :gender, 'Gender' %>
+    <%= f.select :gender, User.gender_options, { include_blank: true } %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>

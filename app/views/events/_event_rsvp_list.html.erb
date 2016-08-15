@@ -3,8 +3,10 @@
 
   <% if @current_user_rsvp_id  %>
      <button class="btn waves-effect waves-light orange event-unrsvp" data-event-id="<%= event.id %>" data-rsvp-id="<%= @current_user_rsvp_id %>">UnRsvp</button>
-  <% else %>
+  <% elsif current_user %>
     <button class="btn waves-effect waves-light orange event-rsvp" data-event-id="<%=event.id %>">RSVP to event</button>
+  <% else %>
+    <button class="btn waves-effect waves-light orange disabled">Login to Rsvp</button>
   <% end %>
 
   <% if @current_user_rsvp_id %>
@@ -15,10 +17,11 @@
 </div>
 
 <% event.rsvps.each do |rsvp| %>
-  <% unless rsvp.user_id == current_user.id %>
+  <% unless current_user && (rsvp.user_id == current_user.id) %>
+    <% cardColor = (rsvp.user.gender == 'Male' ? 'blue lighten-2' : (rsvp.user.gender == 'Female' ? 'pink lighten-2' : 'blue-grey lighten-2')) %>
     <div class="row">
       <div class="col s12">
-        <div class="card blue-grey darken-1">
+        <div class="card <%= cardColor %>">
           <div class="card-content white-text">
             <span class="card-title"><%= image_tag gravatar_url(rsvp.user.email, 64), alt: "", class: "circle" %> <%= rsvp.user.display_name %> (Code: <%= rsvp.code %>)</span>
           </div>

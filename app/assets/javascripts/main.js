@@ -123,4 +123,5 @@ $(document).ready(function() {
   $('#event_rsvp_list').on('click', '.event-toggle-like-user', toggleLikeUser);
 
   $(".dropdown-button").dropdown();
+  $('select').material_select();
 })
