@@ -3,6 +3,8 @@ class Event < ApplicationRecord
   has_many :rsvps, -> { includes(:user) }
   has_many :likes, -> { includes(:user) }
 
+  default_scope { order('start_time') } 
+
   attr_accessor :start_date_date, :start_date_time, :end_date_date, :end_date_time
  
   after_initialize :get_datetimes
@@ -36,7 +38,7 @@ class Event < ApplicationRecord
   def num_rsvps
     rsvps.length
   end
-  
+
   private
 
     def format_display_date(date)
