@@ -12,16 +12,6 @@ class User < ApplicationRecord
   has_many :liked_by, :foreign_key => 'liked_user_id', :class_name => 'Like'
   has_many :admirers, :through => :liked_by, :source => :user
  
- # has_many :event_liked_by, ->  (event) { 
- #          where("event_id = ?", event.id)
- #        }, :foreign_key => 'liked_user_id', :class_name => 'Like'
- # has_many :event_admirers, -> (event) {
- #         where("event_id = ?", event.id)
- #         }, :through => :liked_by, :source => :user
-
-#  has_many :likes_as_a, class_name: "Like", foreign_key: :user_id
-#  has_many :likes_as_b, class_name: "Like", foreign_key: :liked_user_id
-
   GENDERS = ['Male', 'Female', 'Other']
 
   def self.gender_options
@@ -45,14 +35,6 @@ class User < ApplicationRecord
   def mutually_likes?(user)
     self.liked_users.include?(user) && self.admirers.include(user)
 #    self.friends.include?(user) && self.followers.include?(user)
-  end
-
-  def event_mutual_likes_old(event)
-    Like.select('l.*').joins('join likes l on likes.user_id=l.liked_user_id and l.user_id=likes.liked_user_id').where('l.user_id = ?', self.id)
-  end
-
-  def event_mutual_likes2(event)
-    Like.joins('join likes l on likes.user_id=l.liked_user_id and l.user_id=likes.liked_user_id  join users u on l.liked_user_id = u.id').where('l.user_id = ?', self.id).select('u.*')
   end
 
   def event_mutual_likes(event)
