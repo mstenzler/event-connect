@@ -3,7 +3,7 @@ class RsvpsController < ApplicationController
   before_action :load_event
 
   def index
-    @rsvps = @event.rsvps.all
+    @rsvps = @event.rsvps.order('created_at DESC').all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @rsvps}
