@@ -16,4 +16,6 @@
   </ul>
 <% end %>
 
-<%= link_to 'Back', event_path(@event) %>
+<%= link_to event_path(@event), class: "btn waves-effect waves-light"  do %>
+        <i class="material-icons left">assignment_return</i> Back
+      <% end %>

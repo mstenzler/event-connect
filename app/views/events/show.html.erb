@@ -3,9 +3,14 @@
 <div class="row">
   <div class="col s10  offset-s1">
     <h3 class="center-align"><%= @event.title %></h3>
-    <div class="center-align"><%= link_to 'Back', events_path %></div>
+    <div class="center-align">
+      <%= link_to events_path, class: "btn waves-effect waves-light"  do %>
+        <i class="material-icons left">assignment_return</i> Back
+      <% end %>
+     
+    </div>
     <% if current_user && @event.can_modify(current_user) %>
-      <div class="center-align"><%= link_to 'Edit', edit_event_path(@event) %> </div>
+      <div class="center-align"><%= link_to 'Edit', edit_event_path(@event), class: "btn waves-effect waves-light orange" %> </div>
     <% end %>
 
     <div class="card-panel">
@@ -28,7 +33,9 @@
       <strong>Event Info:</strong>
 
       <div class="event-description">
+        <pre>
           <%= @event.description %>
+        </pre>
       </div>
 
     </div>
