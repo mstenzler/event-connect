@@ -29,12 +29,12 @@
             <div class="card-action">
               <% if @liked_user_id_arr.include?(rsvp.user_id) %>
                 <% if like_id = @curr_user_liked_user_to_liked_id_hash[rsvp.user_id] %> 
-                  <button class="btn waves-effect waves-light orange event-toggle-like-user user-likes"  data-action="UnLike" data-event-id="<%= event.id %>" data-like-id="<%= like_id %>" data-liked-user-id="<%= rsvp.user_id %>">Unlike</button>
+                  <button class="btn waves-effect waves-light orange event-toggle-like-user user-likes"  data-action="UnLike" data-event-id="<%= event.id %>" data-like-id="<%= like_id %>" data-liked-user-id="<%= rsvp.user_id %>"><i class="material-icons left">thumb_down</i> Unlike</button>
                 <% else %>
                  <!-- Could not get like_id for user -->
                 <% end %>
               <% else %>
-                  <button class="btn waves-effect waves-light orange event-toggle-like-user" data-event-id="<%= event.id %>" data-action="Like" data-liked-user-id="<%= rsvp.user_id %>">Like</button>
+                  <button class="btn waves-effect waves-light orange event-toggle-like-user" data-event-id="<%= event.id %>" data-action="Like" data-liked-user-id="<%= rsvp.user_id %>"><i class="material-icons left">thumb_up</i> Like</button>
               <% end %>
             </div>
 

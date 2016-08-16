@@ -1,6 +1,8 @@
 $(document).ready(function() {
-  const LIKE_LABEL = "Like";
-  const UNLIKE_LABEL = "UnLike";
+  const LIKE_LABEL = 'Like';
+  const UNLIKE_LABEL = 'UnLike';
+  const THUMB_UP = '<i class="material-icons left">thumb_up</i>';
+  const THUMB_DOWN = '<i class="material-icons left">thumb_down</i>';
 
   function saveRsvp(e) {
     var $target = $(e.target);
@@ -48,9 +50,9 @@ $(document).ready(function() {
     })
   }
 
-  function unlikeUser(e) {
+  function unlikeUser($target) {
     console.log("IN unLikeUser!");
-    var $target = $(e.target);
+//    var $target = $(e.target);
     var event_id = $target.attr('data-event-id');
     var like_id = $target.attr('data-like-id')
 //    var url = `/events/${event_id}/likes/${like_id}.json`
@@ -67,7 +69,7 @@ $(document).ready(function() {
     }).done(function(){
       console.log("unLiked user")
       console.log(arguments);
-      $target.text(LIKE_LABEL);
+      $target.html(THUMB_UP + ' ' + LIKE_LABEL);
       $target.attr('data-action', LIKE_LABEL);
       //$target.attr('disabled', true);
       //let quote = arguments[0];
@@ -75,9 +77,10 @@ $(document).ready(function() {
     })
   }
 
-  function likeUser(e) {
+  function likeUser($target) {
     console.log("IN likeUser!");
-    var $target = $(e.target);
+//    var $target = $(e.target);
+    console.log("target = ", $target)
     var event_id = $target.attr('data-event-id');
     var liked_user_id = $target.attr('data-liked-user-id')
  //   var url = `/events/${event_id}/likes.json`
@@ -95,7 +98,7 @@ $(document).ready(function() {
     }).done(function(data){
       console.log("Liked user. Data = ", data)
       //console.log(arguments);
-      $target.text(UNLIKE_LABEL);
+      $target.html(THUMB_DOWN + ' ' + UNLIKE_LABEL);
       $target.attr('data-action', UNLIKE_LABEL);
       $target.attr('data-like-id', data.id);
       //$target.attr('disabled', true);
@@ -106,13 +109,19 @@ $(document).ready(function() {
 
   function toggleLikeUser(e) {
     var $target = $(e.target);
-    console.log('target = ', $target);
+    console.log('target = ', $target.prop('tagName'));
+    if ($target.prop('tagName') === 'I') {
+      $target = $target.parent();
+      console.log("new $target = ", $target);
+    }
+    console.log('target = ', $target.prop('tagName'));
+    console.log('event = ', e)
     var action = $target.attr('data-action');
     //console.log(`action = ${action}`);
     if (action === LIKE_LABEL) {
-      likeUser(e);
+      likeUser($target);
     } else if (action === UNLIKE_LABEL) {
-      unlikeUser(e);
+      unlikeUser($target);
     } else {
       console.log("Unknown Action")
     }
