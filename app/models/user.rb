@@ -11,6 +11,14 @@ class User < ApplicationRecord
 
   has_many :liked_by, :foreign_key => 'liked_user_id', :class_name => 'Like'
   has_many :admirers, :through => :liked_by, :source => :user
+
+  has_attached_file :avatar, styles: {
+    thumb: '100x100>',
+    square: '200x200#',
+    medium: '300x300>'
+  }
+
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
  
   GENDERS = ['Male', 'Female', 'Other']
 
