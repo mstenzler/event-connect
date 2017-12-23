@@ -21,3 +21,10 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            birthdate:
+              invalid_date: 'You must be over 18 to user this site!'

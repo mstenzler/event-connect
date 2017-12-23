@@ -21,6 +21,11 @@
     <%= f.label :gender, 'Gender' %>
     <%= f.select :gender, User.gender_options, { include_blank: true } %>
   </div>
+
+  <div class="field">
+    <%= f.label :birthdate %><br />
+    <%= f.date_select :birthdate, start_year: 1900 %>
+  </div>
   
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />

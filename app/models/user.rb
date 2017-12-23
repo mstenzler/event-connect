@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  before_save :set_age
+  before_validation :show_birthday
+
   has_many :rsvps
 
   has_many :likes
@@ -19,6 +22,12 @@ class User < ApplicationRecord
   }
 
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  #validates_date :birthdate, :timeliness => { :before => lambda {Date.current}, :type => :date}
+  validates_date :birthdate, :before => lambda { 18.years.ago },
+                            :before_message => 'must be at least 18 years old',
+                            :type => :date,
+                            :type_message => 'must be a valid date'
+
  
   GENDERS = ['Male', 'Female', 'Other']
 
@@ -56,4 +65,36 @@ class User < ApplicationRecord
   def liked_user_id_arr_by_event(event)
     Like.where(event_id: event.id, user_id: self.id).pluck(:liked_user_id)
   end
+
+  private
+    def show_birthday
+      puts "****** Birthday = #{self.birthdate}"
+    end
+
+    def calculate_age_from_date(curr_date)
+      now = Time.now.utc.to_date
+      now.year - curr_date.year - ((now.month > curr_date.month || (now.month == curr_date.month && now.day >= curr_date.day)) ? 0 : 1)
+    end
+
+    def get_age_range(age)
+      case age
+      when 0..21
+        "under 22"
+      when 22..35
+        "22 to 35"
+      when 36..50
+        "36 to 50"
+      when 51..65
+        "51 to 65"
+      when 66..200
+        "over 65"
+      else
+        ""
+      end
+    end
+
+    def set_age
+      self.age = calculate_age_from_date(birthdate)
+      self.age_range = get_age_range(self.age)
+    end
 end
