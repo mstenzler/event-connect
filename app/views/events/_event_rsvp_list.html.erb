@@ -23,7 +23,10 @@
       <div class="col s12">
         <div class="card <%= cardColor %>">
           <div class="card-content white-text">
-            <span class="card-title"><%= image_tag gravatar_url(rsvp.user.email, 64), alt: "", class: "circle" %> <%= rsvp.user.display_name %> (Code: <%= rsvp.code %>)</span>
+            <span class="card-title"><%= avatar_url(rsvp.user, { size: :thumb, class: "circle", alt: "" }) %> <%= rsvp.user.display_name %> (Code: <%= rsvp.code %>)</span>
+            <!--
+                <span class="card-title"> <%= image_tag rsvp.user.avatar.url(:thumb), alt: "", class: "circle" %> <%= rsvp.user.display_name %> (Code: <%= rsvp.code %>)</span>
+              -->
           </div>
           <% if current_user && current_user_already_rsvp %>
             <div class="card-action">

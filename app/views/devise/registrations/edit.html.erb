@@ -1,6 +1,6 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true  }) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
@@ -26,7 +26,17 @@
     <%= f.label :birthdate %><br />
     <%= f.date_select :birthdate, start_year: 1900 %>
   </div>
-  
+
+  <div class="field">
+    <%= f.label :avatar %><br />
+    <%= f.file_field :avatar %>
+  </div>
+  <p>&nbsp;</p>
+
+  <% if @user.avatar? %>
+    <%= image_tag @user.avatar.url(:thumb) %>
+  <% end %>
+
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "off" %>

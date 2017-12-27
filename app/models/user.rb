@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :admirers, :through => :liked_by, :source => :user
 
   has_attached_file :avatar, styles: {
+    small: '30x30',
     thumb: '100x100>',
     square: '200x200#',
     medium: '300x300>'
